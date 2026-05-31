@@ -1,10 +1,10 @@
 // Copyright 2021 NNTU-CS
 #include <algorithm>
-#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <filesystem>
 
 #include "bst.h"
 
@@ -22,11 +22,9 @@ void makeTree(BST<std::string>& tree, const char* fileName) {
     while (file.get(ch)) {
         if (ch >= 'A' && ch <= 'Z') {
             word += char(ch - 'A' + 'a');
-        }
-        else if (ch >= 'a' && ch <= 'z') {
+        } else if (ch >= 'a' && ch <= 'z') {
             word += ch;
-        }
-        else {
+        } else {
             if (!word.empty()) {
                 tree.insert(word);
                 word.clear();
@@ -43,17 +41,15 @@ void printFreq(BST<std::string>& tree) {
     std::vector<std::pair<std::string, int>> words = tree.toVector();
 
     std::sort(words.begin(), words.end(),
-        [](const std::pair<std::string, int>& a,
-            const std::pair<std::string, int>& b) {
-                if (a.second != b.second) {
-                    return a.second > b.second;
-                }
-                return a.first < b.first;
+        [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+            if (a.second != b.second) {
+                return a.second > b.second;
+            }
+            return a.first < b.first;
         }
     );
 
     std::filesystem::create_directories("result");
-
     std::ofstream out("result/freq.txt");
 
     if (!out.is_open()) {
