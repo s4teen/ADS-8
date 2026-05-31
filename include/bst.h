@@ -36,11 +36,9 @@ private:
 
         if (value < node->key) {
             insert(node->left, value);
-        }
-        else if (value > node->key) {
+        } else if (value > node->key) {
             insert(node->right, value);
-        }
-        else {
+        } else {
             node->count++;
         }
     }
@@ -66,7 +64,6 @@ private:
 
         int leftDepth = depth(node->left);
         int rightDepth = depth(node->right);
-
         return 1 + (leftDepth > rightDepth ? leftDepth : rightDepth);
     }
 
