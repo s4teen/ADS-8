@@ -7,10 +7,10 @@ void makeTree(BST<std::string>& tree, const char* fileName);
 void printFreq(BST<std::string>& tree);
 
 int main() {
-    BST<std::string> tree;
+  BST<std::string> tree;
 
-    makeTree(tree, "war_peace.txt");
-    printFreq(tree);
+  makeTree(tree, "war_peace.txt");
+  printFreq(tree);
 
-    return 0;
+  return 0;
 }
