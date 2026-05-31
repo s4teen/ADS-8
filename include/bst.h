@@ -38,30 +38,36 @@ class BST {
 
     if (value < node->key) {
       insert(node->left, value);
-    } else if (value > node->key) {
-      insert(node->right, value);
-    } else {
-      node->count++;
+      return;
     }
+
+    if (value > node->key) {
+      insert(node->right, value);
+      return;
+    }
+
+    node->count++;
   }
 
-  bool search(Node* node, const T& value) const {
+  int search(Node* node, const T& value) const {
     if (node == nullptr) {
-      return false;
+      return 0;
     }
 
     if (value < node->key) {
       return search(node->left, value);
-    } else if (value > node->key) {
-      return search(node->right, value);
-    } else {
-      return true;
     }
+
+    if (value > node->key) {
+      return search(node->right, value);
+    }
+
+    return node->count;
   }
 
   int depth(Node* node) const {
     if (node == nullptr) {
-      return 0;
+      return -1;
     }
 
     int leftDepth = depth(node->left);
@@ -69,18 +75,18 @@ class BST {
 
     if (leftDepth > rightDepth) {
       return leftDepth + 1;
-    } else {
-      return rightDepth + 1;
     }
+
+    return rightDepth + 1;
   }
 
-  void toVector(Node* node, std::vector<std::pair<T, int> >* result) const {
+  void toVector(Node* node, std::vector<std::pair<T, int>>& result) const {
     if (node == nullptr) {
       return;
     }
 
     toVector(node->left, result);
-    result->push_back(std::make_pair(node->key, node->count));
+    result.push_back(std::make_pair(node->key, node->count));
     toVector(node->right, result);
   }
 
@@ -98,7 +104,7 @@ class BST {
     insert(root, value);
   }
 
-  bool search(const T& value) const {
+  int search(const T& value) const {
     return search(root, value);
   }
 
@@ -106,9 +112,9 @@ class BST {
     return depth(root);
   }
 
-  std::vector<std::pair<T, int> > toVector() const {
-    std::vector<std::pair<T, int> > result;
-    toVector(root, &result);
+  std::vector<std::pair<T, int>> toVector() const {
+    std::vector<std::pair<T, int>> result;
+    toVector(root, result);
     return result;
   }
 };
